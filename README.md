@@ -20,56 +20,49 @@ A professional Streamlit application for visualizing camera intrinsic transforma
 ### Local Installation
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/1ssb/ray_visualizer.git
    cd ray_visualizer
    ```
-
 2. **Install dependencies**:
+
    ```bash
    pip install -r requirements.txt
    ```
-
 3. **Run the application**:
+
    ```bash
    streamlit run app.py
    ```
-
 4. **Open your browser** and navigate to `http://localhost:8501`
-
-### Using Docker
-
-1. **Build the Docker image**:
-   ```bash
-   docker build -t ray-visualizer .
-   ```
-
-2. **Run the container**:
-   ```bash
-   docker run -p 8501:8501 ray-visualizer
-   ```
 
 ## 📖 Usage Guide
 
 ### 1. Image Input
+
 - Upload your own image (PNG, JPG, JPEG, BMP, TIF, TIFF)
 - Or use the default checkerboard pattern for testing
 
 ### 2. Camera Intrinsics
+
 - **fx, fy**: Focal lengths in pixels
 - **cx, cy**: Principal point coordinates
 - **Enforce fx = fy**: Option to maintain square pixels
 
 ### 3. Crop Parameters
+
 - **Crop X, Y**: Position of the crop region
 - **Crop Width, Height**: Size of the crop region
 - **Center 50% crop**: Quick button for centered cropping
 
 ### 4. Padding Parameters
+
 - **Pad Left/Right/Top/Bottom**: Padding values in pixels
 - Adjust to see how the expanded image affects camera geometry
 
 ### 5. Visualizations
+
 - **2D Views**: Original, cropped, and expanded images with overlays
 - **3D Views**: Interactive ray visualizations for each transformation
 - **Validation**: Real-time ray invariance metrics
@@ -77,7 +70,9 @@ A professional Streamlit application for visualizing camera intrinsic transforma
 ## 🔧 Technical Details
 
 ### Camera Model
+
 The application uses a pinhole camera model with intrinsic matrix K:
+
 ```
 K = [fx  0  cx]
     [0   fy cy]
@@ -85,13 +80,17 @@ K = [fx  0  cx]
 ```
 
 ### Ray Computation
+
 Rays are computed using inverse projection:
+
 ```
 d = K^(-1) * [u, v, 1]^T
 ```
+
 where (u,v) are pixel coordinates.
 
 ### Ray Invariance
+
 The tool validates that rays remain invariant across transformations by computing angular errors between corresponding rays in different coordinate systems.
 
 ## 🏗️ Architecture
@@ -105,29 +104,34 @@ The application is built with a modular, class-based architecture:
 ## 🚀 Deployment
 
 ### Streamlit Cloud
+
 1. Fork this repository
 2. Connect your GitHub account to [Streamlit Cloud](https://streamlit.io/cloud)
 3. Deploy the app using the repository URL
 
 ### Heroku
+
 1. Add a `Procfile`:
    ```
-   web: streamlit run app.py --server.port=$PORT --server.address=0.0.0.0
+   web: streamlit run ray.py --server.port=$PORT --server.address=0.0.0.0
    ```
 2. Deploy using Heroku CLI or GitHub integration
 
 ### Local Production
+
 ```bash
-streamlit run app.py --server.port=8501 --server.address=0.0.0.0
+streamlit run ray.py --server.port=8501 --server.address=0.0.0.0
 ```
 
 ## 📁 Project Structure
 
 ```
 ray_visualizer/
-├── app.py             # Main application file
-├── requirements.txt   # Python dependencies
-└── README.md         # This file
+├── ray.py              # Main application file
+├── requirements.txt    # Python dependencies
+├── README.md          # This file
+├── Dockerfile         # Docker configuration
+└── .gitignore         # Git ignore rules
 ```
 
 ## 🤝 Contributing
@@ -145,6 +149,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ## 👨‍💻 Author
 
 **Subhransu Bhattacharjee (1ssb)**
+
 - GitHub: [@1ssb](https://github.com/1ssb)
 - Repository: [ray_visualizer](https://github.com/1ssb/ray_visualizer)
 
